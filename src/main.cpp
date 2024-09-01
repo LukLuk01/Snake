@@ -9,7 +9,6 @@
 #include "adc.h"
 #include "max7219.h"
 #include "random.h"
-#include "serial.h"
 
 #define F_CPU           16000000    // clock speed
 #define JOY_X 0
@@ -56,18 +55,18 @@ void move_snake() {
             snake[0].x--;
             if (snake[0].x < 1) snake[0].x = 8;
             break;
-        case 2: // dół (odwrócony)
+        case 2: // dół 
             if (snake[0].y == (1 << 7)) {
                 snake[0].y = 1;  // Przejście do górnego wiersza
             } else {
-                snake[0].y <<= 1;  // Przesunięcie bitowe w dół (odwrócone)
+                snake[0].y <<= 1;  // Przesunięcie bitowe w dół 
             }
             break;
-        case 3: // góra (odwrócony)
+        case 3: // góra 
             if (snake[0].y == 1) {
                 snake[0].y = 1 << 7;  // Przejście do dolnego wiersza
             } else {
-                snake[0].y >>= 1;  // Przesunięcie bitowe w górę (odwrócone)
+                snake[0].y >>= 1;  // Przesunięcie bitowe w górę 
             }
             break;
     }
@@ -115,7 +114,6 @@ int main(void) {
     MAX7219_Init();
     ADC_init();
     RANDOM_init();
-    serial_init();
     sei();
 
     init_snake_game();
@@ -137,7 +135,6 @@ int main(void) {
         update_snake();
 
         if (check_collision()) {
-            serial_string("Game Over\n");
             _delay_ms(2000);
             init_snake_game();
         }
