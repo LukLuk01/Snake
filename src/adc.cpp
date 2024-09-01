@@ -13,8 +13,7 @@ uint16_t ADC_read(uint8_t channel) {
     ADMUX = (ADMUX & 0xF8) | (channel & 0x07);  // Select ADC channel
     ADCSRA |= (1 << ADSC);  // Start conversion
     while (ADCSRA & (1 << ADSC));  // Wait for conversion to complete
-
-    //_delay_us(10);
+    _delay_us(10);
 
     return ADC;
 }
